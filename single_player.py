@@ -34,9 +34,10 @@ class Food:
 
 
 class Square:
-    def __init__(self, pos: Tuple[int, int], direction: Tuple[int, int]):
+    def __init__(self, pos: Tuple[int, int], direction: Tuple[int, int], color):
         self.pos = list(pos)
         self.direction: Tuple[int, int] = direction
+        self.color = color
         # example: for right -> (1, 0), for up -> (0, -1)
     
     def update(self):
@@ -51,9 +52,11 @@ class Snake:
         self.root = root
         self.color = color
         self.square_width, self.square_height = square_size
-        self.squares: List[Square] = [Square(pos, (1, 0))]
+        self.squares: List[Square] = [
+        	Square(pos, (1, 0), tuple(max(0, i - 25) for i in color))
+        ]
         
-        self.grow_up(length)
+        self.grow_up(length - 1)
 
     def update(self):
         if not self.is_dead and len(self.squares):
@@ -87,7 +90,7 @@ class Snake:
     def draw(self):
         for square in self.squares:
             pygame.draw.rect(
-                self.root, self.color,
+                self.root, square.color,
                 (square.pos[0] * self.square_width,
                  square.pos[1] * self.square_height,
                  self.square_width, self.square_height)
@@ -99,7 +102,7 @@ class Snake:
             last_dir_x, last_dir_y = self.squares[-1].direction
             self.squares.append(
                 Square((last_x - last_dir_x, last_y - last_dir_y),
-                       (last_dir_x, last_dir_y))
+                       (last_dir_x, last_dir_y), self.color)
             )
 
 
