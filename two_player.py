@@ -145,9 +145,16 @@ class Game:
         total_y_grids = self.height / self.grid_height
         snakes_y = total_y_grids / 3
         self.snakes: List[Snake] = [
-            Snake(self.root, (255, 0, 0), (int(total_x_grids * 2 / 3 + random.randint(-20, 20)), snakes_y), self.grid_size, 20),
+            Snake(self.root, (255, 0, 0), (
+                int(total_x_grids * 2 / 3 + random.randint(-20, 20)),
+                snakes_y
+            ),
+                  self.grid_size, 20),
             Snake(
-                self.root, (0, 0, 255), (int(total_x_grids * 2 / 3 + random.randint(-20, 20)), total_y_grids - snakes_y),
+                self.root, (0, 0, 255), (
+                    int(total_x_grids * 2 / 3 + random.randint(-20, 20)),
+                    total_y_grids - snakes_y
+                ),
                 self.grid_size, 20
             ),
         ]
